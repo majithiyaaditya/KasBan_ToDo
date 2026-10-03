@@ -1,31 +1,12 @@
-import {
-  createRootRoute,
-  createRoute,
-  createRouter,
-} from "@tanstack/react-router";
-
-import Register from "./pages/Ragister";
-import Login from "./pages/Login";
-
-const rootRoute = createRootRoute();
-
-const registerRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/register",
-  component: Register,
-});
-
-const loginRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/login",
-  component: Login,
-});
-
-const routeTree = rootRoute.addChildren([
-  registerRoute,
-  loginRoute,
-]);
+import { createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
 
 export const router = createRouter({
   routeTree,
 });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
