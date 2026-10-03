@@ -52,27 +52,28 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
   return (
     <div className="space-y-5 select-none">
       {/* Top Banner Analytics */}
-      <div className="bg-[#FFFCF6]/85 backdrop-blur-md border border-[#D7D2C7]/80 rounded-2xl p-5 sm:p-6 text-[#18262B] shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Top Banner Analytics */}
+      <div className="bg-[#FFFCF6]/85 backdrop-blur-md border border-[#D7D2C7]/80 rounded-2xl p-6 sm:p-7 text-[#18262B] shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-[#ECE8DE] text-xs font-semibold text-[#B9683E] mb-2 border border-[#D7D2C7]">
-              <TrendingUp className="w-3.5 h-3.5 text-[#B9683E]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#ECE8DE] text-xs font-bold text-[#B9683E] mb-2.5 border border-[#D7D2C7]">
+              <TrendingUp className="w-4 h-4 text-[#B9683E]" />
               Productivity Overview
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#18262B]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#18262B]">
               Workspace Analytics
             </h2>
-            <p className="text-[#617278] text-xs sm:text-sm mt-1">
+            <p className="text-[#617278] text-sm sm:text-base mt-1.5">
               Real-time workflow throughput, stage velocity, and delivery health.
             </p>
           </div>
 
-          <div className="flex items-center gap-4 bg-[#ECE8DE]/60 px-4 py-3 rounded-xl border border-[#D7D2C7] self-start sm:self-auto">
+          <div className="flex items-center gap-4 bg-[#ECE8DE]/60 px-5 py-3.5 rounded-2xl border border-[#D7D2C7] self-start sm:self-auto">
             <div>
-              <p className="text-[11px] font-semibold text-[#617278]">Completion Rate</p>
-              <p className="text-2xl font-bold text-[#B9683E]">{completionRate}%</p>
+              <p className="text-xs font-bold text-[#617278] uppercase tracking-wider">Completion Rate</p>
+              <p className="text-3xl font-extrabold text-[#B9683E]">{completionRate}%</p>
             </div>
-            <div className="w-10 h-10 rounded-full border-2 border-[#B9683E] flex items-center justify-center font-bold text-xs text-[#18262B] bg-[#FFFCF6]">
+            <div className="w-12 h-12 rounded-full border-2 border-[#B9683E] flex items-center justify-center font-bold text-sm text-[#18262B] bg-[#FFFCF6]">
               {completedTasks}/{totalTasks}
             </div>
           </div>
@@ -82,16 +83,16 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
       {/* Grid: Workflow stage breakdown & Priority distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Stage distribution */}
-        <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-5 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
-          <div className="flex items-center justify-between mb-3.5">
-            <h3 className="font-semibold text-[#18262B] text-xs uppercase tracking-wider flex items-center gap-2">
-              <Layers className="w-3.5 h-3.5 text-[#B9683E]" />
+        <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-6 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-[#18262B] text-sm sm:text-base flex items-center gap-2">
+              <Layers className="w-4 h-4 text-[#B9683E]" />
               Workflow Stages
             </h3>
-            <span className="text-xs text-[#617278] font-medium">{totalTasks} Total Tasks</span>
+            <span className="text-xs sm:text-sm text-[#617278] font-semibold">{totalTasks} Total Tasks</span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {[
               { label: "To Do", count: todoTasks, fill: "bg-[#2D5B6B]" },
               { label: "In Progress", count: inProgressTasks, fill: "bg-[#B9683E]" },
@@ -101,15 +102,15 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
               const pct = totalTasks > 0 ? Math.round((col.count / totalTasks) * 100) : 0;
               return (
                 <div key={col.label}>
-                  <div className="flex justify-between text-xs font-medium mb-1">
+                  <div className="flex justify-between text-xs sm:text-sm font-semibold mb-1">
                     <span className="text-[#18262B]">{col.label}</span>
                     <span className="text-[#617278]">
                       {col.count} tasks ({pct}%)
                     </span>
                   </div>
-                  <div className="w-full bg-[#ECE8DE] rounded-full h-1.5 overflow-hidden border border-[#D7D2C7]/70">
+                  <div className="w-full bg-[#ECE8DE] rounded-full h-2 overflow-hidden border border-[#D7D2C7]/70">
                     <div
-                      className={`h-1.5 rounded-full ${col.fill} transition-all duration-500`}
+                      className={`h-2 rounded-full ${col.fill} transition-all duration-500`}
                       style={{ width: `${pct}%` }}
                     />
                   </div>
@@ -120,49 +121,49 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
         </div>
 
         {/* Priority breakdown & Checklist progress */}
-        <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-5 flex flex-col justify-between gap-4 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
+        <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-6 flex flex-col justify-between gap-5 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
           <div>
-            <div className="flex items-center justify-between mb-3.5">
-              <h3 className="font-semibold text-[#18262B] text-xs uppercase tracking-wider flex items-center gap-2">
-                <BarChart3 className="w-3.5 h-3.5 text-[#B9683E]" />
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-[#18262B] text-sm sm:text-base flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-[#B9683E]" />
                 Priority Breakdown
               </h3>
             </div>
 
-            <div className="grid grid-cols-4 gap-2">
-              <div className="bg-[#C94B4B]/5 border border-[#C94B4B]/20 rounded-xl p-2.5 text-center">
-                <p className="text-[10px] font-semibold text-[#C94B4B] uppercase">Urgent</p>
-                <p className="text-xl font-bold text-[#C94B4B] mt-0.5">{priorityCounts.urgent}</p>
+            <div className="grid grid-cols-4 gap-2.5">
+              <div className="bg-[#C94B4B]/5 border border-[#C94B4B]/20 rounded-xl p-3 text-center">
+                <p className="text-xs font-bold text-[#C94B4B] uppercase">Urgent</p>
+                <p className="text-2xl font-extrabold text-[#C94B4B] mt-0.5">{priorityCounts.urgent}</p>
               </div>
-              <div className="bg-[#B9683E]/5 border border-[#B9683E]/20 rounded-xl p-2.5 text-center">
-                <p className="text-[10px] font-semibold text-[#B9683E] uppercase">High</p>
-                <p className="text-xl font-bold text-[#B9683E] mt-0.5">{priorityCounts.high}</p>
+              <div className="bg-[#B9683E]/5 border border-[#B9683E]/20 rounded-xl p-3 text-center">
+                <p className="text-xs font-bold text-[#B9683E] uppercase">High</p>
+                <p className="text-2xl font-extrabold text-[#B9683E] mt-0.5">{priorityCounts.high}</p>
               </div>
-              <div className="bg-[#B7862D]/5 border border-[#B7862D]/20 rounded-xl p-2.5 text-center">
-                <p className="text-[10px] font-semibold text-[#B7862D] uppercase">Medium</p>
-                <p className="text-xl font-bold text-[#B7862D] mt-0.5">{priorityCounts.medium}</p>
+              <div className="bg-[#B7862D]/5 border border-[#B7862D]/20 rounded-xl p-3 text-center">
+                <p className="text-xs font-bold text-[#B7862D] uppercase">Medium</p>
+                <p className="text-2xl font-extrabold text-[#B7862D] mt-0.5">{priorityCounts.medium}</p>
               </div>
-              <div className="bg-[#ECE8DE]/50 border border-[#D7D2C7] rounded-xl p-2.5 text-center">
-                <p className="text-[10px] font-semibold text-[#617278] uppercase">Low</p>
-                <p className="text-xl font-bold text-[#18262B] mt-0.5">{priorityCounts.low}</p>
+              <div className="bg-[#ECE8DE]/50 border border-[#D7D2C7] rounded-xl p-3 text-center">
+                <p className="text-xs font-bold text-[#617278] uppercase">Low</p>
+                <p className="text-2xl font-extrabold text-[#18262B] mt-0.5">{priorityCounts.low}</p>
               </div>
             </div>
           </div>
 
           {/* Subtasks Rate */}
-          <div className="bg-[#ECE8DE]/50 rounded-xl p-3 border border-[#D7D2C7]">
-            <div className="flex items-center justify-between mb-1.5 text-xs">
-              <span className="text-[#18262B] flex items-center gap-1.5 font-medium">
-                <CheckSquare className="w-3.5 h-3.5 text-[#B9683E]" />
+          <div className="bg-[#ECE8DE]/50 rounded-xl p-3.5 border border-[#D7D2C7]">
+            <div className="flex items-center justify-between mb-2 text-xs sm:text-sm">
+              <span className="text-[#18262B] flex items-center gap-2 font-semibold">
+                <CheckSquare className="w-4 h-4 text-[#B9683E]" />
                 Checklist Completion
               </span>
-              <span className="font-semibold text-[#B9683E]">
+              <span className="font-bold text-[#B9683E]">
                 {completedSubtasks}/{totalSubtasks} ({subtaskRate}%)
               </span>
             </div>
-            <div className="w-full bg-[#ECE8DE] rounded-full h-1.5 overflow-hidden border border-[#D7D2C7]/70">
+            <div className="w-full bg-[#ECE8DE] rounded-full h-2 overflow-hidden border border-[#D7D2C7]/70">
               <div
-                className="bg-[#B9683E] h-1.5 rounded-full transition-all duration-300"
+                className="bg-[#B9683E] h-2 rounded-full transition-all duration-300"
                 style={{ width: `${subtaskRate}%` }}
               />
             </div>
@@ -171,13 +172,13 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
       </div>
 
       {/* Overdue Tasks Section */}
-      <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-5 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-semibold text-[#18262B] text-xs uppercase tracking-wider flex items-center gap-2">
-            <AlertTriangle className="w-3.5 h-3.5 text-[#C94B4B]" />
+      <div className="bg-[#FFFCF6]/85 backdrop-blur-md rounded-2xl border border-[#D7D2C7]/80 p-6 shadow-[0_4px_16px_rgba(23,59,74,0.03)]">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-bold text-[#18262B] text-sm sm:text-base flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-[#C94B4B]" />
             Overdue Tasks
           </h3>
-          <span className="text-xs font-semibold text-[#C94B4B]">
+          <span className="text-xs sm:text-sm font-bold text-[#C94B4B]">
             {overdueTasksList.length} requiring attention
           </span>
         </div>
@@ -188,26 +189,26 @@ export const TaskAnalyticsView: React.FC<TaskAnalyticsViewProps> = ({ tasks, onV
               <div
                 key={task.id}
                 onClick={() => onViewDetails(task)}
-                className="py-2.5 flex items-center justify-between gap-3 hover:bg-[#ECE8DE]/40 px-2 rounded-lg transition cursor-pointer text-xs"
+                className="py-3 flex items-center justify-between gap-3 hover:bg-[#ECE8DE]/40 px-3 rounded-xl transition cursor-pointer text-sm"
               >
-                <div className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C94B4B]" />
+                <div className="flex items-center gap-3">
+                  <span className="w-2 h-2 rounded-full bg-[#C94B4B]" />
                   <div>
-                    <span className="font-medium text-[#18262B]">{task.title}</span>
-                    <span className="text-[#C94B4B] ml-2 font-medium">
+                    <span className="font-semibold text-[#18262B]">{task.title}</span>
+                    <span className="text-[#C94B4B] ml-2 font-bold">
                       Due: {task.dueDate}
                     </span>
                   </div>
                 </div>
-                <span className="text-[#617278] bg-[#ECE8DE] px-2 py-0.5 rounded text-[11px] border border-[#D7D2C7]">
+                <span className="text-[#617278] bg-[#ECE8DE] px-2.5 py-1 rounded-lg text-xs font-semibold border border-[#D7D2C7]">
                   {COLUMNS.find((c) => c.id === task.columnId)?.title}
                 </span>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-4 text-[#4F7D61] text-xs font-medium flex items-center justify-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#4F7D61]" />
+          <div className="text-center py-4 text-[#4F7D61] text-sm font-semibold flex items-center justify-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-[#4F7D61]" />
             <span>All tasks are currently on schedule.</span>
           </div>
         )}

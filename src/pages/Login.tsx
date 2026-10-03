@@ -33,13 +33,13 @@ function Login() {
 
       {/* Brand Header */}
       <div className="relative z-10 flex flex-col items-center mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-[#FFFCF6] border border-[#D7D2C7] flex items-center justify-center text-[#B9683E] shadow-sm mb-3">
-          <Layers className="w-6 h-6 text-[#B9683E]" />
+        <div className="w-14 h-14 rounded-2xl bg-[#FFFCF6] border border-[#D7D2C7] flex items-center justify-center text-[#B9683E] shadow-sm mb-3">
+          <Layers className="w-7 h-7 text-[#B9683E]" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#18262B]">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#18262B]">
           KasBan
         </h1>
-        <p className="text-xs text-[#617278] mt-1 uppercase tracking-widest font-semibold">
+        <p className="text-xs sm:text-sm text-[#617278] mt-1.5 uppercase tracking-widest font-bold">
           Project Command Center
         </p>
       </div>
@@ -47,8 +47,8 @@ function Login() {
       {/* Form Surface */}
       <div className="relative z-10 w-full max-w-md bg-[#FFFCF6]/85 backdrop-blur-xl border border-[#D7D2C7] rounded-2xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(23,59,74,0.10)] glass-panel">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-[#18262B]">Sign in to your account</h2>
-          <p className="text-xs text-[#617278] mt-1">
+          <h2 className="text-2xl font-bold text-[#18262B]">Sign in to your account</h2>
+          <p className="text-sm text-[#617278] mt-1.5">
             Access your workspace boards, tasks, and project analytics.
           </p>
         </div>
@@ -63,10 +63,10 @@ function Login() {
               setAuthError("Invalid email or password. Please try again.");
             }
           })}
-          className="space-y-4"
+          className="space-y-4.5"
         >
           {authError && (
-            <div className="p-3 bg-[#C94B4B]/5 border border-[#C94B4B]/30 text-[#C94B4B] rounded-xl text-xs flex items-center gap-2 font-medium">
+            <div className="p-3.5 bg-[#C94B4B]/5 border border-[#C94B4B]/30 text-[#C94B4B] rounded-xl text-sm flex items-center gap-2.5 font-medium">
               <AlertCircle className="w-4 h-4 text-[#C94B4B] shrink-0" />
               <span>{authError}</span>
             </div>
@@ -76,7 +76,7 @@ function Login() {
           <div>
             <label
               htmlFor="email"
-              className="block text-xs font-semibold uppercase tracking-wider text-[#617278] mb-1.5"
+              className="block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#617278] mb-2"
             >
               Email Address
             </label>
@@ -88,13 +88,13 @@ function Login() {
                 placeholder="name@example.com"
                 className={`w-full bg-[#FFFCF6] border ${
                   errors.email ? "border-[#C94B4B] bg-[#C94B4B]/5" : "border-[#D7D2C7] focus:border-[#B9683E] focus:ring-1 focus:ring-[#B9683E]/20"
-                } rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-[#18262B] placeholder-[#617278]/60 transition outline-none`}
+                } rounded-xl pl-10 pr-3.5 py-3 text-sm sm:text-base text-[#18262B] placeholder-[#617278]/60 transition outline-none`}
                 {...register("email")}
               />
             </div>
             {errors.email && (
-              <p className="text-xs text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <p className="text-xs sm:text-sm text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errors.email.message}</span>
               </p>
             )}
@@ -104,7 +104,7 @@ function Login() {
           <div>
             <label
               htmlFor="password"
-              className="block text-xs font-semibold uppercase tracking-wider text-[#617278] mb-1.5"
+              className="block text-xs sm:text-sm font-bold uppercase tracking-wider text-[#617278] mb-2"
             >
               Password
             </label>
@@ -116,13 +116,13 @@ function Login() {
                 placeholder="••••••••"
                 className={`w-full bg-[#FFFCF6] border ${
                   errors.password ? "border-[#C94B4B] bg-[#C94B4B]/5" : "border-[#D7D2C7] focus:border-[#B9683E] focus:ring-1 focus:ring-[#B9683E]/20"
-                } rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-[#18262B] placeholder-[#617278]/60 transition outline-none`}
+                } rounded-xl pl-10 pr-3.5 py-3 text-sm sm:text-base text-[#18262B] placeholder-[#617278]/60 transition outline-none`}
                 {...register("password")}
               />
             </div>
             {errors.password && (
-              <p className="text-xs text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <p className="text-xs sm:text-sm text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errors.password.message}</span>
               </p>
             )}
@@ -132,7 +132,7 @@ function Login() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-[#B9683E] hover:bg-[#98502F] text-[#FFFCF6] font-semibold py-2.5 px-4 rounded-xl transition duration-200 cursor-pointer shadow-[0_8px_20px_rgba(185,104,62,0.20)] flex items-center justify-center gap-2 active:translate-y-0 disabled:opacity-60"
+            className="w-full bg-[#B9683E] hover:bg-[#98502F] text-[#FFFCF6] font-bold text-base py-3 px-4 rounded-xl transition duration-200 cursor-pointer shadow-[0_8px_20px_rgba(185,104,62,0.20)] flex items-center justify-center gap-2 active:translate-y-0 disabled:opacity-60"
           >
             <span>Sign In</span>
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -140,11 +140,11 @@ function Login() {
         </form>
 
         <div className="mt-6 pt-5 border-t border-[#D7D2C7] text-center">
-          <p className="text-xs text-[#617278]">
+          <p className="text-sm text-[#617278]">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-[#B9683E] font-semibold hover:underline transition"
+              className="text-[#B9683E] font-bold hover:underline transition"
             >
               Create Account
             </Link>

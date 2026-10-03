@@ -53,15 +53,15 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18262B]/35 backdrop-blur-sm overflow-y-auto">
       <div className="bg-[#FFFCF6]/95 backdrop-blur-2xl rounded-2xl w-full max-w-lg shadow-[0_20px_60px_rgba(23,59,74,0.18)] border border-[#D7D2C7] overflow-hidden my-8 glass-panel animate-in fade-in duration-200">
         {/* Top Header */}
-        <div className="px-5 py-3.5 border-b border-[#D7D2C7]/70 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${priorityConfig.dot}`} />
-            <span className={`text-xs font-semibold ${priorityConfig.color}`}>
+            <span className={`w-2.5 h-2.5 rounded-full ${priorityConfig.dot}`} />
+            <span className={`text-sm font-bold ${priorityConfig.color}`}>
               {priorityConfig.label} Priority
             </span>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5">
             <button
               type="button"
               onClick={() => {
@@ -71,7 +71,7 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
               title="Edit Task"
               className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
             >
-              <Edit3 className="w-3.5 h-3.5" />
+              <Edit3 className="w-4 h-4" />
             </button>
             <button
               type="button"
@@ -82,28 +82,28 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
               title="Delete Task"
               className="p-1.5 text-[#617278] hover:text-[#C94B4B] hover:bg-[#C94B4B]/10 rounded-lg transition cursor-pointer"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Trash2 className="w-4 h-4" />
             </button>
             <button
               type="button"
               onClick={onClose}
               className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer ml-1"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
         {/* Content Body */}
-        <div className="p-5 space-y-4 text-xs">
+        <div className="p-6 space-y-5 text-sm">
           {/* Status selector & Title */}
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[11px] font-medium text-[#617278]">Status:</span>
+            <div className="flex items-center gap-2.5 mb-2.5">
+              <span className="text-xs font-bold text-[#617278] uppercase tracking-wider">Status:</span>
               <select
                 value={task.columnId}
                 onChange={(e) => moveTask(task.id, e.target.value as ColumnIdType)}
-                className="text-xs font-medium px-2 py-1 rounded-lg border border-[#D7D2C7] bg-[#FFFCF6] text-[#18262B] focus:outline-none focus:border-[#B9683E] cursor-pointer"
+                className="text-sm font-semibold px-3 py-1.5 rounded-xl border border-[#D7D2C7] bg-[#FFFCF6] text-[#18262B] focus:outline-none focus:border-[#B9683E] cursor-pointer"
               >
                 {COLUMNS.map((col) => (
                   <option key={col.id} value={col.id} className="bg-[#FFFCF6] text-[#18262B]">
@@ -112,35 +112,35 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
                 ))}
               </select>
             </div>
-            <h1 className="text-base sm:text-lg font-bold text-[#18262B] leading-snug">
+            <h1 className="text-xl sm:text-2xl font-bold text-[#18262B] leading-snug">
               {task.title}
             </h1>
           </div>
 
           {/* Description */}
           {task.description && (
-            <div className="bg-[#ECE8DE]/40 p-3.5 rounded-xl border border-[#D7D2C7]/80">
-              <p className="text-xs text-[#18262B] leading-relaxed whitespace-pre-wrap">
+            <div className="bg-[#ECE8DE]/40 p-4 rounded-xl border border-[#D7D2C7]/80">
+              <p className="text-sm sm:text-base text-[#18262B] leading-relaxed whitespace-pre-wrap">
                 {task.description}
               </p>
             </div>
           )}
 
           {/* Metadata: Due Date & Tags */}
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-4">
             {task.dueDate && (
-              <div className="flex items-center gap-1.5 text-[#617278]">
-                <Calendar className="w-3.5 h-3.5 text-[#B9683E]" />
+              <div className="flex items-center gap-2 text-sm text-[#617278] font-medium">
+                <Calendar className="w-4 h-4 text-[#B9683E]" />
                 <span>Due {task.dueDate}</span>
               </div>
             )}
 
             {task.tags && task.tags.length > 0 && (
-              <div className="flex items-center gap-1 flex-wrap">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 {task.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 rounded text-[11px] bg-[#ECE8DE] text-[#617278] border border-[#D7D2C7]"
+                    className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[#ECE8DE] text-[#617278] border border-[#D7D2C7]"
                   >
                     #{tag}
                   </span>
@@ -150,45 +150,45 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
           </div>
 
           {/* Checklist / Subtasks */}
-          <div className="pt-2 border-t border-[#D7D2C7]/70">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-semibold text-[#18262B] uppercase tracking-wider text-[11px]">
+          <div className="pt-3 border-t border-[#D7D2C7]/70">
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="font-bold text-[#18262B] uppercase tracking-wider text-xs sm:text-sm">
                 Subtasks ({completedSubCount}/{totalSubCount})
               </span>
               {totalSubCount > 0 && (
-                <span className="text-[11px] text-[#B9683E] font-medium">{subPercent}% done</span>
+                <span className="text-xs sm:text-sm text-[#B9683E] font-semibold">{subPercent}% done</span>
               )}
             </div>
 
             {totalSubCount > 0 && (
-              <div className="w-full bg-[#ECE8DE] rounded-full h-1.5 mb-2.5 overflow-hidden border border-[#D7D2C7]/70">
+              <div className="w-full bg-[#ECE8DE] rounded-full h-2 mb-3 overflow-hidden border border-[#D7D2C7]/70">
                 <div
-                  className="bg-[#B9683E] h-1.5 rounded-full transition-all duration-300"
+                  className="bg-[#B9683E] h-2 rounded-full transition-all duration-300"
                   style={{ width: `${subPercent}%` }}
                 />
               </div>
             )}
 
             {/* Subtask list */}
-            <div className="space-y-1 mb-2.5 max-h-40 overflow-y-auto">
+            <div className="space-y-1.5 mb-3 max-h-48 overflow-y-auto">
               {task.subtasks?.map((sub) => (
                 <div
                   key={sub.id}
-                  className="flex items-center justify-between gap-2 p-2 rounded-lg bg-[#ECE8DE]/40 hover:bg-[#ECE8DE]/70 transition border border-[#D7D2C7]/60 text-xs"
+                  className="flex items-center justify-between gap-2.5 p-2.5 rounded-xl bg-[#ECE8DE]/40 hover:bg-[#ECE8DE]/70 transition border border-[#D7D2C7]/60 text-sm"
                 >
                   <button
                     type="button"
                     onClick={() => toggleSubtask(task.id, sub.id)}
-                    className="flex items-center gap-2 text-left flex-1 cursor-pointer"
+                    className="flex items-center gap-2.5 text-left flex-1 cursor-pointer"
                   >
                     {sub.completed ? (
-                      <CheckSquare className="w-3.5 h-3.5 text-[#4F7D61] shrink-0" />
+                      <CheckSquare className="w-4 h-4 text-[#4F7D61] shrink-0" />
                     ) : (
-                      <Square className="w-3.5 h-3.5 text-[#617278] shrink-0" />
+                      <Square className="w-4 h-4 text-[#617278] shrink-0" />
                     )}
                     <span
                       className={`${
-                        sub.completed ? "line-through text-[#617278]/60" : "text-[#18262B]"
+                        sub.completed ? "line-through text-[#617278]/60" : "text-[#18262B] font-medium"
                       }`}
                     >
                       {sub.title}
@@ -198,9 +198,9 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
                   <button
                     type="button"
                     onClick={() => removeSubtask(task.id, sub.id)}
-                    className="text-[#617278] hover:text-[#C94B4B] p-0.5 rounded cursor-pointer"
+                    className="text-[#617278] hover:text-[#C94B4B] p-1 rounded cursor-pointer"
                   >
-                    <Trash2 className="w-3 h-3" />
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -213,13 +213,13 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
                 placeholder="Add subtask..."
                 value={newSubtask}
                 onChange={(e) => setNewSubtask(e.target.value)}
-                className="flex-1 px-2.5 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-lg text-xs text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
+                className="flex-1 px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
               />
               <button
                 type="submit"
-                className="px-3 py-1.5 bg-[#B9683E] hover:bg-[#98502F] text-[#FFFCF6] font-semibold rounded-lg text-xs flex items-center gap-1 transition cursor-pointer shadow-[0_4px_12px_rgba(185,104,62,0.15)]"
+                className="px-4 py-2 bg-[#B9683E] hover:bg-[#98502F] text-[#FFFCF6] font-semibold rounded-xl text-sm flex items-center gap-1.5 transition cursor-pointer shadow-[0_4px_12px_rgba(185,104,62,0.15)]"
               >
-                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                <Plus className="w-4 h-4 stroke-[2.5]" />
                 <span>Add</span>
               </button>
             </form>
@@ -227,12 +227,12 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-3 bg-[#ECE8DE]/40 border-t border-[#D7D2C7]/70 flex items-center justify-between text-xs text-[#617278]">
+        <div className="px-6 py-3.5 bg-[#ECE8DE]/40 border-t border-[#D7D2C7]/70 flex items-center justify-between text-xs sm:text-sm text-[#617278]">
           <span>Created {new Date(task.createdAt).toLocaleDateString()}</span>
           <button
             type="button"
             onClick={onClose}
-            className="px-3 py-1 bg-[#FFFCF6] hover:bg-[#ECE8DE] border border-[#D7D2C7] rounded-lg text-[#18262B] transition cursor-pointer font-medium"
+            className="px-4 py-1.5 bg-[#FFFCF6] hover:bg-[#ECE8DE] border border-[#D7D2C7] rounded-xl text-[#18262B] transition cursor-pointer font-semibold text-sm"
           >
             Close
           </button>

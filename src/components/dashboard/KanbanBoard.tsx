@@ -79,11 +79,11 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
             {/* Column Header: Simple indicator, Title, count, + button */}
             <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#D7D2C7]/70 select-none">
               <div className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${dotColor}`} />
-                <h2 className="font-bold text-xs uppercase tracking-wider text-[#18262B]">
+                <span className={`w-2.5 h-2.5 rounded-full ${dotColor}`} />
+                <h2 className="font-bold text-sm sm:text-base text-[#18262B]">
                   {column.title}
                 </h2>
-                <span className="text-[11px] font-semibold text-[#617278] bg-[#ECE8DE] px-2 py-0.5 rounded-full border border-[#D7D2C7]/80">
+                <span className="text-xs font-semibold text-[#617278] bg-[#ECE8DE] px-2.5 py-0.5 rounded-full border border-[#D7D2C7]/80">
                   {columnTasks.length}
                 </span>
               </div>
@@ -92,9 +92,9 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
                 type="button"
                 onClick={() => onOpenCreateModal(column.id)}
                 title={`Add task to ${column.title}`}
-                className="p-1 text-[#617278] hover:text-[#B9683E] hover:bg-[#ECE8DE] rounded-md transition cursor-pointer"
+                className="p-1.5 text-[#617278] hover:text-[#B9683E] hover:bg-[#ECE8DE] rounded-md transition cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                <Plus className="w-4 h-4 stroke-[2.5]" />
               </button>
             </div>
 
@@ -122,8 +122,8 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
                       : "border-[#D7D2C7] hover:border-[#B9683E]/50 hover:bg-[#ECE8DE]/30"
                   }`}
                 >
-                  <p className="text-xs text-[#617278]">No tasks</p>
-                  <span className="text-[11px] text-[#B9683E] mt-1 font-medium hover:underline">
+                  <p className="text-sm font-medium text-[#617278]">No tasks</p>
+                  <span className="text-sm text-[#B9683E] mt-1 font-semibold hover:underline">
                     + Add task
                   </span>
                 </div>

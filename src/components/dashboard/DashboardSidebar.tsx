@@ -63,12 +63,12 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
       >
         <div className="flex flex-col h-full">
           {/* Brand Header */}
-          <div className="h-14 px-5 flex items-center justify-between border-b border-[#D7D2C7]/70 shrink-0">
+          <div className="h-16 px-5 flex items-center justify-between border-b border-[#D7D2C7]/70 shrink-0">
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-[#B9683E]/12 border border-[#B9683E]/30 flex items-center justify-center text-[#B9683E]">
+              <div className="w-8 h-8 rounded-lg bg-[#B9683E]/12 border border-[#B9683E]/30 flex items-center justify-center text-[#B9683E]">
                 <Layers className="w-4 h-4 text-[#B9683E]" />
               </div>
-              <span className="font-bold text-base text-[#18262B] tracking-tight">
+              <span className="font-bold text-lg text-[#18262B] tracking-tight">
                 KasBan
               </span>
             </div>
@@ -77,20 +77,20 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="lg:hidden p-1 rounded-md text-[#617278] hover:text-[#18262B] hover:bg-[#D7D2C7]/50 transition cursor-pointer"
+              className="lg:hidden p-1.5 rounded-md text-[#617278] hover:text-[#18262B] hover:bg-[#D7D2C7]/50 transition cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Navigation Section */}
-          <div className="flex-1 overflow-y-auto px-3 py-5 space-y-6">
+          <div className="flex-1 overflow-y-auto px-3.5 py-5 space-y-6">
             {/* Main Views */}
             <div>
-              <p className="px-2.5 text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-2">
+              <p className="px-2.5 text-xs font-bold text-[#617278] uppercase tracking-wider mb-2.5">
                 Views
               </p>
-              <nav className="space-y-0.5">
+              <nav className="space-y-1">
                 {navItems.map((item) => {
                   const isActive = activeView === item.id;
                   return (
@@ -101,9 +101,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                         setActiveView(item.id);
                         onClose();
                       }}
-                      className={`w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium transition cursor-pointer ${
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition cursor-pointer ${
                         isActive
-                          ? "bg-[#B9683E]/10 text-[#B9683E] font-semibold border-l-[2.5px] border-[#B9683E]"
+                          ? "bg-[#B9683E]/10 text-[#B9683E] border-l-[3px] border-[#B9683E]"
                           : "text-[#617278] hover:text-[#18262B] hover:bg-[#D7D2C7]/30"
                       }`}
                     >
@@ -119,10 +119,10 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 
             {/* Workflow Stages */}
             <div>
-              <p className="px-2.5 text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-2">
+              <p className="px-2.5 text-xs font-bold text-[#617278] uppercase tracking-wider mb-2.5">
                 Workflow
               </p>
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 {workflowStages.map((col) => (
                   <button
                     key={col.id}
@@ -131,13 +131,13 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                       setActiveView("board");
                       onClose();
                     }}
-                    className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-[#617278] hover:text-[#18262B] hover:bg-[#D7D2C7]/30 transition cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium text-[#617278] hover:text-[#18262B] hover:bg-[#D7D2C7]/30 transition cursor-pointer"
                   >
-                    <div className="flex items-center gap-2">
-                      <span className={`w-1.5 h-1.5 rounded-full ${col.dotColor}`} />
+                    <div className="flex items-center gap-2.5">
+                      <span className={`w-2 h-2 rounded-full ${col.dotColor}`} />
                       <span>{col.label}</span>
                     </div>
-                    <span className="text-[11px] text-[#617278] font-medium bg-[#FFFCF6] px-1.5 py-0.5 rounded-md border border-[#D7D2C7]/60">
+                    <span className="text-xs text-[#617278] font-semibold bg-[#FFFCF6] px-2 py-0.5 rounded-full border border-[#D7D2C7]/60">
                       {tasksCountByColumn[col.id] || 0}
                     </span>
                   </button>
@@ -148,16 +148,16 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
 
           {/* User Profile at Bottom */}
           <div className="p-3 border-t border-[#D7D2C7]/70 shrink-0">
-            <div className="flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-[#FFFCF6]/80 border border-[#D7D2C7]/60">
+            <div className="flex items-center justify-between gap-2.5 px-2.5 py-2 rounded-xl bg-[#FFFCF6]/80 border border-[#D7D2C7]/60">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-7 h-7 rounded-full bg-[#B9683E]/12 border border-[#B9683E]/30 flex items-center justify-center text-xs font-bold text-[#B9683E] shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#B9683E]/12 border border-[#B9683E]/30 flex items-center justify-center text-sm font-bold text-[#B9683E] shrink-0">
                   {currentUser?.username ? currentUser.username.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs font-medium text-[#18262B] truncate">
+                  <p className="text-sm font-bold text-[#18262B] truncate">
                     {currentUser?.username || "Workspace User"}
                   </p>
-                  <p className="text-[10px] text-[#617278] truncate">
+                  <p className="text-xs text-[#617278] truncate">
                     {currentUser?.email || "user@kasban.io"}
                   </p>
                 </div>
@@ -167,9 +167,9 @@ export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
                 type="button"
                 onClick={handleLogout}
                 title="Sign out"
-                className="p-1.5 text-[#617278] hover:text-[#C94B4B] hover:bg-[#C94B4B]/10 rounded-md transition cursor-pointer shrink-0"
+                className="p-1.5 text-[#617278] hover:text-[#C94B4B] hover:bg-[#C94B4B]/10 rounded-lg transition cursor-pointer shrink-0"
               >
-                <LogOut className="w-3.5 h-3.5" />
+                <LogOut className="w-4 h-4" />
               </button>
             </div>
           </div>

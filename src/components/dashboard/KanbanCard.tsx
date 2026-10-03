@@ -76,9 +76,9 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
     >
       <div>
         {/* Top: Priority Dot/Label & 3-dot Menu */}
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <div className="flex items-center gap-1.5 text-xs font-medium">
-            <span className={`w-1.5 h-1.5 rounded-full ${priorityConfig.dot}`} />
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <div className="flex items-center gap-1.5 text-xs font-semibold">
+            <span className={`w-2 h-2 rounded-full ${priorityConfig.dot}`} />
             <span className={priorityConfig.color}>{priorityConfig.label}</span>
           </div>
 
@@ -90,20 +90,20 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
               className="p-1 rounded-md text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] opacity-60 group-hover:opacity-100 transition cursor-pointer"
               title="Card options"
             >
-              <MoreHorizontal className="w-3.5 h-3.5" />
+              <MoreHorizontal className="w-4 h-4" />
             </button>
 
             {isMenuOpen && (
-              <div className="absolute right-0 top-full mt-1 w-36 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl shadow-[0_16px_40px_rgba(23,59,74,0.12)] py-1 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div className="absolute right-0 top-full mt-1 w-40 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl shadow-[0_16px_40px_rgba(23,59,74,0.12)] py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100">
                 <button
                   type="button"
                   onClick={() => {
                     setIsMenuOpen(false);
                     onEdit(task);
                   }}
-                  className="w-full text-left px-3 py-1.5 text-xs text-[#18262B] hover:text-[#B9683E] hover:bg-[#ECE8DE] flex items-center gap-2 transition cursor-pointer"
+                  className="w-full text-left px-3 py-2 text-sm text-[#18262B] hover:text-[#B9683E] hover:bg-[#ECE8DE] flex items-center gap-2.5 transition cursor-pointer"
                 >
-                  <Edit3 className="w-3.5 h-3.5" />
+                  <Edit3 className="w-4 h-4" />
                   <span>Edit</span>
                 </button>
 
@@ -114,9 +114,9 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                       setIsMenuOpen(false);
                       onMove(task.id, nextColumn);
                     }}
-                    className="w-full text-left px-3 py-1.5 text-xs text-[#18262B] hover:text-[#B9683E] hover:bg-[#ECE8DE] flex items-center gap-2 transition cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-sm text-[#18262B] hover:text-[#B9683E] hover:bg-[#ECE8DE] flex items-center gap-2.5 transition cursor-pointer"
                   >
-                    <ArrowRight className="w-3.5 h-3.5 text-[#B9683E]" />
+                    <ArrowRight className="w-4 h-4 text-[#B9683E]" />
                     <span>Move Next</span>
                   </button>
                 )}
@@ -127,9 +127,9 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                     setIsMenuOpen(false);
                     onDelete(task.id);
                   }}
-                  className="w-full text-left px-3 py-1.5 text-xs text-[#C94B4B] hover:bg-[#C94B4B]/10 flex items-center gap-2 transition cursor-pointer"
+                  className="w-full text-left px-3 py-2 text-sm text-[#C94B4B] hover:bg-[#C94B4B]/10 flex items-center gap-2.5 transition cursor-pointer"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-4 h-4" />
                   <span>Delete</span>
                 </button>
               </div>
@@ -139,23 +139,23 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
 
         {/* Task Title */}
         <h3
-          className={`font-semibold text-sm text-[#18262B] leading-snug line-clamp-2 hover:text-[#B9683E] transition mb-1 ${
+          className={`font-semibold text-sm sm:text-base text-[#18262B] leading-snug line-clamp-2 hover:text-[#B9683E] transition mb-1.5 ${
             task.columnId === "done" ? "line-through text-[#617278]/60" : ""
           }`}
         >
           {task.title}
         </h3>
 
-        {/* Short Description (Max 1 line or omitted) */}
+        {/* Short Description */}
         {task.description && (
-          <p className="text-xs text-[#617278] line-clamp-1 mb-2.5 leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#617278] line-clamp-2 mb-3 leading-relaxed">
             {task.description}
           </p>
         )}
       </div>
 
       {/* Footer: Due date on left, subtasks on right */}
-      <div className="pt-2 border-t border-[#D7D2C7]/60 flex items-center justify-between text-xs text-[#617278] mt-1">
+      <div className="pt-2.5 border-t border-[#D7D2C7]/60 flex items-center justify-between text-xs text-[#617278] mt-1">
         {formattedDate ? (
           <span
             className={`font-medium ${
@@ -169,7 +169,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
         )}
 
         {totalSubtasks > 0 && (
-          <span className="text-[11px] text-[#617278]">
+          <span className="text-xs text-[#617278] font-medium">
             {completedSubtasks}/{totalSubtasks} subtasks
           </span>
         )}

@@ -143,24 +143,24 @@ export const TaskModal: React.FC<TaskModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18262B]/35 backdrop-blur-sm overflow-y-auto">
       <div className="bg-[#FFFCF6]/95 backdrop-blur-2xl rounded-2xl w-full max-w-lg shadow-[0_24px_80px_rgba(23,59,74,0.20)] border border-[#D7D2C7] overflow-hidden my-8 glass-panel relative animate-in fade-in duration-200">
         {/* Header */}
-        <div className="px-5 py-3.5 border-b border-[#D7D2C7]/70 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-[#18262B]">
+        <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-[#18262B]">
             {initialData ? "Edit Task" : "New Task"}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-md transition cursor-pointer"
+            className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="p-5 space-y-3.5 text-xs">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 space-y-4 text-sm">
           {/* Primary Field 1: Title */}
           <div>
-            <label htmlFor="task-title" className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1">
+            <label htmlFor="task-title" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
               Title <span className="text-[#C94B4B]">*</span>
             </label>
             <input
@@ -168,13 +168,13 @@ export const TaskModal: React.FC<TaskModalProps> = ({
               type="text"
               placeholder="What needs to be done?"
               {...register("title")}
-              className={`w-full px-3 py-2 bg-[#FFFCF6] border ${
+              className={`w-full px-3.5 py-2.5 bg-[#FFFCF6] border ${
                 errors.title ? "border-[#C94B4B] bg-[#C94B4B]/5" : "border-[#D7D2C7] focus:border-[#B9683E] focus:ring-1 focus:ring-[#B9683E]/20"
-              } rounded-xl text-[#18262B] placeholder-[#617278]/60 focus:outline-none transition`}
+              } rounded-xl text-sm sm:text-base text-[#18262B] placeholder-[#617278]/60 focus:outline-none transition`}
             />
             {errors.title && (
-              <p className="text-[11px] text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1 bg-[#C94B4B]/5 p-1 rounded-md border border-[#C94B4B]/20">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <p className="text-xs text-[#C94B4B] mt-1.5 font-medium flex items-center gap-1.5 bg-[#C94B4B]/5 p-1.5 rounded-lg border border-[#C94B4B]/20">
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errors.title.message}</span>
               </p>
             )}
@@ -182,28 +182,28 @@ export const TaskModal: React.FC<TaskModalProps> = ({
 
           {/* Primary Field 2: Description */}
           <div>
-            <label htmlFor="task-desc" className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1">
+            <label htmlFor="task-desc" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
               Description
             </label>
             <textarea
               id="task-desc"
-              rows={2}
+              rows={3}
               placeholder="Add key context or details..."
               {...register("description")}
-              className="w-full px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] focus:border-[#B9683E] focus:ring-1 focus:ring-[#B9683E]/20 rounded-xl text-[#18262B] placeholder-[#617278]/60 focus:outline-none transition"
+              className="w-full px-3.5 py-2.5 bg-[#FFFCF6] border border-[#D7D2C7] focus:border-[#B9683E] focus:ring-1 focus:ring-[#B9683E]/20 rounded-xl text-sm sm:text-base text-[#18262B] placeholder-[#617278]/60 focus:outline-none transition"
             />
           </div>
 
           {/* Primary Field 3 & 4: Status and Priority */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3.5">
             <div>
-              <label htmlFor="task-column" className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1">
+              <label htmlFor="task-column" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
                 Status
               </label>
               <select
                 id="task-column"
                 {...register("columnId")}
-                className="w-full px-2.5 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-[#18262B] focus:border-[#B9683E] focus:outline-none cursor-pointer"
+                className="w-full px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm font-medium text-[#18262B] focus:border-[#B9683E] focus:outline-none cursor-pointer"
               >
                 {COLUMNS.map((col) => (
                   <option key={col.id} value={col.id} className="bg-[#FFFCF6] text-[#18262B]">
@@ -214,13 +214,13 @@ export const TaskModal: React.FC<TaskModalProps> = ({
             </div>
 
             <div>
-              <label htmlFor="task-priority" className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1">
+              <label htmlFor="task-priority" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
                 Priority
               </label>
               <select
                 id="task-priority"
                 {...register("priority")}
-                className="w-full px-2.5 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-[#18262B] focus:border-[#B9683E] focus:outline-none cursor-pointer"
+                className="w-full px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm font-medium text-[#18262B] focus:border-[#B9683E] focus:outline-none cursor-pointer"
               >
                 <option value="low" className="bg-[#FFFCF6] text-[#18262B]">Low</option>
                 <option value="medium" className="bg-[#FFFCF6] text-[#18262B]">Medium</option>
@@ -232,14 +232,14 @@ export const TaskModal: React.FC<TaskModalProps> = ({
 
           {/* Primary Field 5: Due Date */}
           <div>
-            <label htmlFor="task-duedate" className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1">
+            <label htmlFor="task-duedate" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
               Due Date
             </label>
             <input
               id="task-duedate"
               type="date"
               {...register("dueDate")}
-              className="w-full px-3 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-[#18262B] focus:border-[#B9683E] focus:outline-none transition"
+              className="w-full px-3.5 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm font-medium text-[#18262B] focus:border-[#B9683E] focus:outline-none transition"
             />
           </div>
 
@@ -248,25 +248,25 @@ export const TaskModal: React.FC<TaskModalProps> = ({
             <button
               type="button"
               onClick={() => setShowMoreOptions(!showMoreOptions)}
-              className="flex items-center gap-1.5 text-xs text-[#617278] hover:text-[#B9683E] transition cursor-pointer select-none font-medium"
+              className="flex items-center gap-2 text-sm text-[#617278] hover:text-[#B9683E] transition cursor-pointer select-none font-semibold"
             >
-              {showMoreOptions ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              {showMoreOptions ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               <span>{showMoreOptions ? "Fewer options" : "More options (Tags, Checklist)"}</span>
               {(selectedTags.length > 0 || subtasksList.length > 0) && !showMoreOptions && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#B9683E]" />
+                <span className="w-2 h-2 rounded-full bg-[#B9683E]" />
               )}
             </button>
           </div>
 
           {/* Expandable Advanced Fields */}
           {showMoreOptions && (
-            <div className="space-y-3.5 pt-2 border-t border-[#D7D2C7]/60 animate-in fade-in duration-100">
+            <div className="space-y-4 pt-3 border-t border-[#D7D2C7]/60 animate-in fade-in duration-100">
               {/* Tags Manager */}
               <div>
-                <label className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-2">
                   Tags
                 </label>
-                <div className="flex flex-wrap gap-1 mb-2">
+                <div className="flex flex-wrap gap-1.5 mb-2.5">
                   {AVAILABLE_TAGS.map((tag) => {
                     const isSelected = selectedTags.includes(tag);
                     return (
@@ -274,7 +274,7 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                         key={tag}
                         type="button"
                         onClick={() => handleToggleTag(tag)}
-                        className={`px-2 py-0.5 rounded-md text-[11px] transition cursor-pointer border ${
+                        className={`px-2.5 py-1 rounded-lg text-xs font-medium transition cursor-pointer border ${
                           isSelected
                             ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
                             : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7] hover:text-[#18262B]"
@@ -291,16 +291,16 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                   value={customTagInput}
                   onChange={(e) => setCustomTagInput(e.target.value)}
                   onKeyDown={handleAddCustomTag}
-                  className="w-full px-2.5 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-lg text-xs text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
                 />
               </div>
 
               {/* Subtasks Checklist */}
               <div>
-                <label className="block text-[11px] font-semibold text-[#617278] uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-2">
                   Checklist ({subtasksList.length})
                 </label>
-                <div className="flex gap-2 mb-2">
+                <div className="flex gap-2 mb-2.5">
                   <input
                     type="text"
                     placeholder="Add checklist item..."
@@ -312,32 +312,32 @@ export const TaskModal: React.FC<TaskModalProps> = ({
                         handleAddSubtask(e);
                       }
                     }}
-                    className="flex-1 px-2.5 py-1.5 bg-[#FFFCF6] border border-[#D7D2C7] rounded-lg text-xs text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
+                    className="flex-1 px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
                   />
                   <button
                     type="button"
                     onClick={handleAddSubtask}
-                    className="px-3 py-1.5 bg-[#ECE8DE] hover:bg-[#D7D2C7] border border-[#D7D2C7] text-[#B9683E] font-semibold text-xs rounded-lg transition cursor-pointer flex items-center gap-1"
+                    className="px-3.5 py-2 bg-[#ECE8DE] hover:bg-[#D7D2C7] border border-[#D7D2C7] text-[#B9683E] font-semibold text-sm rounded-xl transition cursor-pointer flex items-center gap-1.5"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-4 h-4" />
                     <span>Add</span>
                   </button>
                 </div>
 
                 {subtasksList.length > 0 && (
-                  <div className="space-y-1 max-h-32 overflow-y-auto">
+                  <div className="space-y-1.5 max-h-36 overflow-y-auto">
                     {subtasksList.map((sub) => (
                       <div
                         key={sub.id}
-                        className="flex items-center justify-between gap-2 p-1.5 px-2 bg-[#ECE8DE]/50 rounded-md border border-[#D7D2C7]/70 text-xs"
+                        className="flex items-center justify-between gap-2 p-2 px-3 bg-[#ECE8DE]/50 rounded-lg border border-[#D7D2C7]/70 text-sm"
                       >
                         <span className="text-[#18262B] truncate">{sub.title}</span>
                         <button
                           type="button"
                           onClick={() => handleRemoveSubtask(sub.id)}
-                          className="text-[#617278] hover:text-[#C94B4B] p-0.5 rounded cursor-pointer"
+                          className="text-[#617278] hover:text-[#C94B4B] p-1 rounded cursor-pointer"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
                     ))}
@@ -348,17 +348,17 @@ export const TaskModal: React.FC<TaskModalProps> = ({
           )}
 
           {/* Modal Actions */}
-          <div className="pt-3 border-t border-[#D7D2C7]/70 flex items-center justify-end gap-2.5">
+          <div className="pt-4 border-t border-[#D7D2C7]/70 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 text-xs font-medium text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
+              className="px-4 py-2 text-sm font-semibold text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-xl transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 text-xs font-semibold text-[#FFFCF6] bg-[#B9683E] hover:bg-[#98502F] rounded-lg transition cursor-pointer shadow-[0_8px_20px_rgba(185,104,62,0.20)] active:translate-y-0"
+              className="px-5 py-2 text-sm font-semibold text-[#FFFCF6] bg-[#B9683E] hover:bg-[#98502F] rounded-xl transition cursor-pointer shadow-[0_8px_20px_rgba(185,104,62,0.20)] active:translate-y-0"
             >
               {initialData ? "Save Changes" : "Create Task"}
             </button>
