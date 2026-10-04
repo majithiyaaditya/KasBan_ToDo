@@ -1,0 +1,95 @@
+/* ==================================================
+   React Bits: AnimatedList Component Styles
+   Enhanced with project color system & fluid transitions
+   ================================================== */
+
+.scroll-list-container {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-list {
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 8px 4px;
+}
+
+.scroll-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-list::-webkit-scrollbar-track {
+  background: rgba(23, 59, 74, 0.05);
+  border-radius: 9999px;
+}
+
+.scroll-list::-webkit-scrollbar-thumb {
+  background: rgba(45, 91, 107, 0.3);
+  border-radius: 9999px;
+}
+
+.scroll-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(185, 104, 62, 0.5);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.item {
+  padding: 14px 16px;
+  background-color: #FFFCF6;
+  border: 1px solid #D7D2C7;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(23, 59, 74, 0.04);
+}
+
+.item:hover {
+  border-color: rgba(185, 104, 62, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(23, 59, 74, 0.07);
+}
+
+.item.selected {
+  background-color: rgba(185, 104, 62, 0.08);
+  border-color: #B9683E;
+  box-shadow: 0 4px 16px rgba(185, 104, 62, 0.12);
+}
+
+.item-text {
+  color: #18262B;
+  font-weight: 500;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.top-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(245, 242, 234, 0.95), transparent);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.bottom-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, rgba(245, 242, 234, 0.95), transparent);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}

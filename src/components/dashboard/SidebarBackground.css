@@ -1,0 +1,331 @@
+/* ==========================================================================
+   KasBan Sidebar Background Liquid Animation Styles
+   Tailored for vertical frosted-glass sidebar aesthetic
+   ========================================================================== */
+
+/* Outer background canvas container */
+.sidebar-bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  contain: strict;
+  border-radius: inherit;
+}
+
+/* Subtle underlying ambient wash */
+.sidebar-bg-ambient-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(236, 232, 222, 0.45) 0%,
+    rgba(245, 242, 234, 0.25) 30%,
+    rgba(236, 232, 222, 0.35) 70%,
+    rgba(229, 224, 211, 0.50) 100%
+  );
+  z-index: 1;
+}
+
+/* Base Liquid Morphing Orbs Layer */
+.sidebar-bg-orbs-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  filter: blur(36px);
+  opacity: 0.88;
+  transform: translateZ(0);
+}
+
+/* ==========================================================================
+   Liquid Orb Animations
+   ========================================================================== */
+
+@keyframes sb-morph-copper {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 55% 45% 60% 40% / 40% 60% 40% 60%;
+  }
+  25% {
+    transform: translate3d(18px, -24px, 0) scale(1.10) rotate(8deg);
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+  }
+  50% {
+    transform: translate3d(-14px, 20px, 0) scale(0.94) rotate(-6deg);
+    border-radius: 60% 40% 50% 50% / 45% 55% 45% 55%;
+  }
+  75% {
+    transform: translate3d(12px, -12px, 0) scale(1.05) rotate(4deg);
+    border-radius: 40% 60% 55% 45% / 50% 50% 40% 60%;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 55% 45% 60% 40% / 40% 60% 40% 60%;
+  }
+}
+
+@keyframes sb-morph-ocean {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 48% 52% 45% 55% / 52% 48% 55% 45%;
+  }
+  33% {
+    transform: translate3d(-16px, 22px, 0) scale(1.08) rotate(-7deg);
+    border-radius: 58% 42% 52% 48% / 45% 55% 42% 58%;
+  }
+  66% {
+    transform: translate3d(14px, -18px, 0) scale(0.96) rotate(6deg);
+    border-radius: 42% 58% 46% 54% / 56% 44% 50% 50%;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 48% 52% 45% 55% / 52% 48% 55% 45%;
+  }
+}
+
+@keyframes sb-morph-amber {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 50% 50% 55% 45% / 45% 55% 50% 50%;
+  }
+  50% {
+    transform: translate3d(15px, 25px, 0) scale(1.12) rotate(10deg);
+    border-radius: 40% 60% 45% 55% / 60% 40% 55% 45%;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+    border-radius: 50% 50% 55% 45% / 45% 55% 50% 50%;
+  }
+}
+
+@keyframes sb-morph-light {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(-12px, -18px, 0) scale(1.08);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+    opacity: 0.55;
+  }
+}
+
+/* Individual Liquid Orbs */
+.sb-orb-copper {
+  position: absolute;
+  top: 52%;
+  left: -25%;
+  width: 210px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(185, 104, 62, 0.28) 0%,
+    rgba(185, 104, 62, 0.12) 48%,
+    transparent 72%
+  );
+  animation: sb-morph-copper 16s ease-in-out infinite;
+  will-change: transform, border-radius;
+}
+
+.sb-orb-ocean {
+  position: absolute;
+  top: 6%;
+  right: -25%;
+  width: 220px;
+  height: 210px;
+  background: radial-gradient(
+    circle,
+    rgba(23, 59, 74, 0.22) 0%,
+    rgba(45, 91, 107, 0.10) 48%,
+    transparent 74%
+  );
+  animation: sb-morph-ocean 20s ease-in-out infinite;
+  will-change: transform, border-radius;
+}
+
+.sb-orb-amber {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 170px;
+  height: 180px;
+  background: radial-gradient(
+    circle,
+    rgba(183, 134, 45, 0.18) 0%,
+    rgba(183, 134, 45, 0.06) 50%,
+    transparent 75%
+  );
+  animation: sb-morph-amber 14s ease-in-out infinite;
+  will-change: transform, border-radius;
+}
+
+.sb-orb-light {
+  position: absolute;
+  bottom: 8%;
+  right: -10%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 252, 246, 0.75) 0%,
+    rgba(245, 242, 234, 0.25) 55%,
+    transparent 75%
+  );
+  animation: sb-morph-light 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Secondary Flowing Mesh Stream */
+@keyframes sb-mesh-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.sidebar-bg-mesh-stream {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.45;
+  background: linear-gradient(
+    135deg,
+    rgba(185, 104, 62, 0.08) 0%,
+    transparent 35%,
+    rgba(23, 59, 74, 0.06) 65%,
+    rgba(183, 134, 45, 0.08) 100%
+  );
+  background-size: 200% 200%;
+  animation: sb-mesh-flow 18s ease infinite;
+}
+
+/* Elegant diagonal glass shimmer sheen sweeping periodically */
+@keyframes sb-sheen-sweep {
+  0% {
+    transform: translateY(-120%) rotate(25deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.55;
+  }
+  30% {
+    transform: translateY(220%) rotate(25deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(220%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+.sidebar-bg-sheen {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 90px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  filter: blur(6px);
+  animation: sb-sheen-sweep 15s ease-in-out infinite;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Floating Micro-Ember Particles */
+@keyframes sb-float-particle {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.65;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(12px, -110px, 0) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.sb-particle {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation: sb-float-particle linear infinite;
+  z-index: 4;
+}
+
+/* Dynamic Interactive Mouse Spotlight */
+.sidebar-bg-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: background, opacity;
+}
+
+/* Tactile Paper Dot Texture Overlay */
+.sidebar-bg-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.05;
+  background-image: radial-gradient(#18262B 1px, transparent 1px);
+  background-size: 18px 18px;
+  mix-blend-mode: multiply;
+}
+
+/* Glass Edge Highlight Sheen (right border luminous glow) */
+.sidebar-bg-edge-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(185, 104, 62, 0.3) 30%,
+    rgba(45, 91, 107, 0.25) 70%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  z-index: 7;
+}
+
+/* Accessibility: Reduced Motion handling */
+@media (prefers-reduced-motion: reduce) {
+  .sb-orb-copper,
+  .sb-orb-ocean,
+  .sb-orb-amber,
+  .sb-orb-light,
+  .sidebar-bg-mesh-stream,
+  .sidebar-bg-sheen,
+  .sb-particle {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .sidebar-bg-sheen,
+  .sb-particle {
+    display: none !important;
+  }
+}

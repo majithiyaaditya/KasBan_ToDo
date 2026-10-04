@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
   --color-kb-bg: #F5F2EA;
   --color-kb-sidebar: #ECE8DE;
   --color-kb-surface: #FFFCF6;
@@ -18,6 +21,9 @@
 }
 
 :root {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Manrope', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
   --kb-bg: #F5F2EA;
   --kb-sidebar: #ECE8DE;
   --kb-surface: #FFFCF6;
@@ -51,13 +57,24 @@ body {
   min-height: 100vh;
   background-color: #F5F2EA;
   color: #18262B;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.9375rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   position: relative;
+}
+
+/* Headings Typography: Manrope */
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+}
+
+/* UI / Controls / Body Typography: Inter */
+button, input, select, textarea, label, .font-sans {
+  font-family: var(--font-sans);
 }
 
 /* ==================================================
@@ -193,6 +210,41 @@ body {
   z-index: 10;
 }
 
+/* Glass Reflection Sheen for Cards and Modals */
+.glass-reflection {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-reflection::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.05) 30%,
+      transparent 60%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 5;
+}
+
+/* Subtle Interactive Hover Transitions */
+button,
+a,
+input,
+select,
+textarea {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 180ms;
+}
+
+/* Smooth Kanban Drag Ghost Feedback */
+[draggable="true"]:active {
+  cursor: grabbing;
+}
+
 /* Custom Minimal Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -218,8 +270,17 @@ body {
   color: #FFFCF6;
 }
 
-/* Accessibility: Reduced Motion */
+/* Accessibility: Reduced Motion (Complete Reset) */
 @media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 
   .liquid-orb-ocean,
   .liquid-orb-copper,

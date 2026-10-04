@@ -1,12 +1,15 @@
-import { createFileRoute, Navigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useAuthStore } from "../store/authStore";
 
 export const Route = createFileRoute("/")({
-  component: IndexComponent,
+  beforeLoad: () => {
+    const auth = useAuthStore.getState();
+    const isValid = auth.validateSession();
+    if (!isValid) {
+      throw redirect({ to: "/login", replace: true });
+    }
+    throw redirect({ to: "/dashboard", replace: true });
+  },
+  component: () => null,
 });
 
-function IndexComponent() {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-  return <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />;
-}

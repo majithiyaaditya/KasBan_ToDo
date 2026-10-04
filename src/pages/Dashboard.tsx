@@ -12,9 +12,11 @@ import { TaskAnalyticsView } from "../components/dashboard/TaskAnalyticsView";
 import { TaskModal } from "../components/dashboard/TaskModal";
 import { TaskDetailModal } from "../components/dashboard/TaskDetailModal";
 import type { TaskFormData } from "../schemas/DashboardSchema";
+import { LiquidWebGLBackground, ViewTransition } from "../components/interactions";
+import { AnimatedItem } from "../components/AnimatedList";
 
 export default function Dashboard() {
-  const { currentUser, isAuthenticated } = useAuthStore();
+  const { currentUser, isAuthenticated, validateSession } = useAuthStore();
   const navigate = useNavigate();
 
   const {
@@ -40,12 +42,13 @@ export default function Dashboard() {
   const [selectedColumnForNew, setSelectedColumnForNew] = useState<ColumnIdType>("todo");
   const [viewingTask, setViewingTask] = useState<Task | null>(null);
 
-  // Authentication Guard
+  // Strict Authentication Guard
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate({ to: "/login" });
+    const isValid = validateSession();
+    if (!isValid) {
+      navigate({ to: "/login", replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [validateSession, navigate]);
 
   // Keep viewingTask in sync with store updates (e.g. subtask toggled)
   useEffect(() => {
@@ -59,8 +62,8 @@ export default function Dashboard() {
 
   // Filter tasks for current user
   const userTasks = useMemo(() => {
-    const currentUserId = currentUser?.id || "guest-user";
-    return tasks.filter((t) => t.userId === currentUserId);
+    if (!currentUser?.id) return [];
+    return tasks.filter((t) => t.userId === currentUser.id);
   }, [tasks, currentUser?.id]);
 
   // Column counts for sidebar
@@ -148,7 +151,8 @@ export default function Dashboard() {
   };
 
   const handleFormSubmit = (data: TaskFormData) => {
-    const userId = currentUser?.id || "guest-user";
+    if (!currentUser?.id) return;
+    const userId = currentUser.id;
     if (editingTask) {
       updateTask(editingTask.id, {
         title: data.title,
@@ -175,14 +179,26 @@ export default function Dashboard() {
     moveTask(taskId, targetCol);
   };
 
-  return (
-    <div className="min-h-screen bg-[#F5F2EA] text-[#18262B] flex font-sans antialiased overflow-x-hidden relative selection:bg-[#B9683E] selection:text-[#FFFCF6]">
-      {/* Ambient Liquid Background (Stay strictly behind interface) */}
-      <div className="liquid-orb-ocean" aria-hidden="true" />
-      <div className="liquid-orb-copper" aria-hidden="true" />
-      <div className="liquid-orb-light" aria-hidden="true" />
+  // Block unverified render entirely while redirecting
+  if (!isAuthenticated || !currentUser) {
+    return (
+      <div className="min-h-screen bg-[#F5F2EA] flex flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-[#B9683E]/15 border border-[#B9683E]/30 flex items-center justify-center text-[#B9683E]">
+            <div className="w-5 h-5 rounded-full border-2 border-[#B9683E] border-t-transparent animate-spin" />
+          </div>
+          <p className="text-sm font-semibold text-[#617278]">Verifying session...</p>
+        </div>
+      </div>
+    );
+  }
 
-      {/* KasBan Sidebar */}
+  return (
+    <div className="h-screen w-full bg-[#F5F2EA] text-[#18262B] flex font-sans antialiased overflow-hidden relative selection:bg-[#B9683E] selection:text-[#FFFCF6]">
+      {/* Liquid WebGL Background (React Three Fiber) */}
+      <LiquidWebGLBackground />
+
+      {/* KasBan Sidebar - Stays permanently fixed on the left */}
       <DashboardSidebar
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
@@ -190,51 +206,59 @@ export default function Dashboard() {
         tasksCountByColumn={tasksCountByColumn}
       />
 
-      {/* Main Workspace Area */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen relative z-10">
-        {/* Workspace Top Header */}
+      {/* Main Workspace Column */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden relative z-10">
+        {/* Workspace Top Header - Stays permanently fixed at the top */}
         <DashboardHeader
           onOpenCreateModal={() => handleOpenCreateModal("todo")}
           onToggleSidebar={() => setIsSidebarOpen(true)}
         />
 
-        {/* Content Container */}
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-          {/* KPI Metrics Summary Bar */}
-          <DashboardMetrics tasks={userTasks} />
+        {/* Scrollable Center Component - ONLY this area moves on scroll */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden min-h-0">
+          <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+            {/* KPI Metrics Summary Bar */}
+            <AnimatedItem index={0} delay={0.04} duration={0.65} scale={0.96} y={14}>
+              <DashboardMetrics tasks={userTasks} />
+            </AnimatedItem>
 
-          {/* Search, Filter, Sort Controls */}
-          <DashboardFilters />
+            {/* Search, Filter, Sort Controls */}
+            <AnimatedItem index={1} delay={0.10} duration={0.65} scale={0.96} y={14}>
+              <DashboardFilters />
+            </AnimatedItem>
 
-          {/* View Mode Switching */}
-          {activeView === "board" && (
-            <KanbanBoard
-              tasks={filteredAndSortedTasks}
-              onOpenCreateModal={handleOpenCreateModal}
-              onEditTask={handleEditTask}
-              onDeleteTask={handleDeleteTask}
-              onMoveTask={handleMoveTask}
-              onViewDetails={(task) => setViewingTask(task)}
-            />
-          )}
+            {/* View Mode Switching with Smooth GSAP Transition */}
+            <ViewTransition viewKey={activeView}>
+              {activeView === "board" && (
+                <KanbanBoard
+                  tasks={filteredAndSortedTasks}
+                  onOpenCreateModal={handleOpenCreateModal}
+                  onEditTask={handleEditTask}
+                  onDeleteTask={handleDeleteTask}
+                  onMoveTask={handleMoveTask}
+                  onViewDetails={(task) => setViewingTask(task)}
+                />
+              )}
 
-          {activeView === "list" && (
-            <TaskListView
-              tasks={filteredAndSortedTasks}
-              onEditTask={handleEditTask}
-              onDeleteTask={handleDeleteTask}
-              onMoveTask={handleMoveTask}
-              onViewDetails={(task) => setViewingTask(task)}
-            />
-          )}
+              {activeView === "list" && (
+                <TaskListView
+                  tasks={filteredAndSortedTasks}
+                  onEditTask={handleEditTask}
+                  onDeleteTask={handleDeleteTask}
+                  onMoveTask={handleMoveTask}
+                  onViewDetails={(task) => setViewingTask(task)}
+                />
+              )}
 
-          {activeView === "analytics" && (
-            <TaskAnalyticsView
-              tasks={userTasks}
-              onViewDetails={(task) => setViewingTask(task)}
-            />
-          )}
-        </main>
+              {activeView === "analytics" && (
+                <TaskAnalyticsView
+                  tasks={userTasks}
+                  onViewDetails={(task) => setViewingTask(task)}
+                />
+              )}
+            </ViewTransition>
+          </main>
+        </div>
       </div>
 
       {/* Create / Edit Modal */}

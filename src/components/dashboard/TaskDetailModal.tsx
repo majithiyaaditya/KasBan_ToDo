@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import type { Task, ColumnIdType } from "../../store/taskStore";
 import { COLUMNS, useTaskStore } from "../../store/taskStore";
+import { ModalTransition, MagneticButton } from "../interactions";
 
 interface TaskDetailModalProps {
   task: Task | null;
@@ -29,7 +30,7 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
   const [newSubtask, setNewSubtask] = useState("");
   const { toggleSubtask, addSubtask, removeSubtask, moveTask } = useTaskStore();
 
-  if (!isOpen || !task) return null;
+  if (!task) return null;
 
   const handleAddSub = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,51 +51,55 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
   const subPercent = totalSubCount > 0 ? Math.round((completedSubCount / totalSubCount) * 100) : 0;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18262B]/35 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#FFFCF6]/95 backdrop-blur-2xl rounded-2xl w-full max-w-lg shadow-[0_20px_60px_rgba(23,59,74,0.18)] border border-[#D7D2C7] overflow-hidden my-8 glass-panel animate-in fade-in duration-200">
-        {/* Top Header */}
-        <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full ${priorityConfig.dot}`} />
-            <span className={`text-sm font-bold ${priorityConfig.color}`}>
-              {priorityConfig.label} Priority
-            </span>
+    <ModalTransition isOpen={isOpen} onClose={onClose} maxWidthClass="max-w-lg">
+      {(handleClose) => (
+        <>
+          {/* Top Header */}
+          <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className={`w-2.5 h-2.5 rounded-full ${priorityConfig.dot}`} />
+              <span className={`text-sm font-bold ${priorityConfig.color}`}>
+                {priorityConfig.label} Priority
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <MagneticButton
+                type="button"
+                onClick={() => {
+                  handleClose();
+                  onEdit(task);
+                }}
+                title="Edit Task"
+                className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
+                strength={0.2}
+              >
+                <Edit3 className="w-4 h-4" />
+              </MagneticButton>
+              <MagneticButton
+                type="button"
+                onClick={() => {
+                  onDelete(task.id);
+                  handleClose();
+                }}
+                title="Delete Task"
+                className="p-1.5 text-[#617278] hover:text-[#C94B4B] hover:bg-[#C94B4B]/10 rounded-lg transition cursor-pointer"
+                strength={0.2}
+              >
+                <Trash2 className="w-4 h-4" />
+              </MagneticButton>
+              <MagneticButton
+                type="button"
+                onClick={handleClose}
+                className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer ml-1"
+                strength={0.2}
+              >
+                <X className="w-5 h-5" />
+              </MagneticButton>
+            </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                onEdit(task);
-              }}
-              title="Edit Task"
-              className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
-            >
-              <Edit3 className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                onDelete(task.id);
-                onClose();
-              }}
-              title="Delete Task"
-              className="p-1.5 text-[#617278] hover:text-[#C94B4B] hover:bg-[#C94B4B]/10 rounded-lg transition cursor-pointer"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer ml-1"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Content Body */}
+          {/* Content Body */}
         <div className="p-6 space-y-5 text-sm">
           {/* Status selector & Title */}
           <div>
@@ -215,13 +220,14 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
                 onChange={(e) => setNewSubtask(e.target.value)}
                 className="flex-1 px-3 py-2 bg-[#FFFCF6] border border-[#D7D2C7] rounded-xl text-sm text-[#18262B] placeholder-[#617278]/60 focus:border-[#B9683E] focus:outline-none"
               />
-              <button
+              <MagneticButton
                 type="submit"
                 className="px-4 py-2 bg-[#B9683E] hover:bg-[#98502F] text-[#FFFCF6] font-semibold rounded-xl text-sm flex items-center gap-1.5 transition cursor-pointer shadow-[0_4px_12px_rgba(185,104,62,0.15)]"
+                strength={0.25}
               >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
                 <span>Add</span>
-              </button>
+              </MagneticButton>
             </form>
           </div>
         </div>
@@ -229,15 +235,17 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
         {/* Footer */}
         <div className="px-6 py-3.5 bg-[#ECE8DE]/40 border-t border-[#D7D2C7]/70 flex items-center justify-between text-xs sm:text-sm text-[#617278]">
           <span>Created {new Date(task.createdAt).toLocaleDateString()}</span>
-          <button
+          <MagneticButton
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="px-4 py-1.5 bg-[#FFFCF6] hover:bg-[#ECE8DE] border border-[#D7D2C7] rounded-xl text-[#18262B] transition cursor-pointer font-semibold text-sm"
+            strength={0.2}
           >
             Close
-          </button>
+          </MagneticButton>
         </div>
-      </div>
-    </div>
+        </>
+      )}
+    </ModalTransition>
   );
 };

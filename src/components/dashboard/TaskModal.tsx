@@ -10,6 +10,7 @@ import {
 } from "../../schemas/DashboardSchema";
 import type { Task } from "../../store/taskStore";
 import { COLUMNS, AVAILABLE_TAGS } from "../../store/taskStore";
+import { ModalTransition, MagneticButton } from "../interactions";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -86,8 +87,6 @@ export const TaskModal: React.FC<TaskModalProps> = ({
     }
   }, [initialData, defaultColumn, reset, isOpen]);
 
-  if (!isOpen) return null;
-
   // Subtask handlers
   const handleAddSubtask = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,34 +129,39 @@ export const TaskModal: React.FC<TaskModalProps> = ({
     }
   };
 
-  const handleFormSubmit = (data: TaskFormData) => {
+  const handleFormSubmit = (data: TaskFormData, handleClose: () => void) => {
     onSubmit({
       ...data,
       tags: selectedTags,
       subtasks: subtasksList,
     });
-    onClose();
+    handleClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18262B]/35 backdrop-blur-sm overflow-y-auto">
-      <div className="bg-[#FFFCF6]/95 backdrop-blur-2xl rounded-2xl w-full max-w-lg shadow-[0_24px_80px_rgba(23,59,74,0.20)] border border-[#D7D2C7] overflow-hidden my-8 glass-panel relative animate-in fade-in duration-200">
-        {/* Header */}
-        <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-[#18262B]">
-            {initialData ? "Edit Task" : "New Task"}
-          </h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+    <ModalTransition isOpen={isOpen} onClose={onClose} maxWidthClass="max-w-lg">
+      {(handleClose) => (
+        <>
+          {/* Header */}
+          <div className="px-6 py-4 border-b border-[#D7D2C7]/70 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-[#18262B]">
+              {initialData ? "Edit Task" : "New Task"}
+            </h2>
+            <MagneticButton
+              type="button"
+              onClick={handleClose}
+              className="p-1.5 text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-lg transition cursor-pointer"
+              strength={0.2}
+            >
+              <X className="w-5 h-5" />
+            </MagneticButton>
+          </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 space-y-4 text-sm">
+          {/* Form Body */}
+          <form
+            onSubmit={handleSubmit((data) => handleFormSubmit(data, handleClose))}
+            className="p-6 space-y-4 text-sm"
+          >
           {/* Primary Field 1: Title */}
           <div>
             <label htmlFor="task-title" className="block text-xs font-bold text-[#617278] uppercase tracking-wider mb-1.5">
@@ -349,22 +353,25 @@ export const TaskModal: React.FC<TaskModalProps> = ({
 
           {/* Modal Actions */}
           <div className="pt-4 border-t border-[#D7D2C7]/70 flex items-center justify-end gap-3">
-            <button
+            <MagneticButton
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="px-4 py-2 text-sm font-semibold text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE] rounded-xl transition cursor-pointer"
+              strength={0.2}
             >
               Cancel
-            </button>
-            <button
+            </MagneticButton>
+            <MagneticButton
               type="submit"
               className="px-5 py-2 text-sm font-semibold text-[#FFFCF6] bg-[#B9683E] hover:bg-[#98502F] rounded-xl transition cursor-pointer shadow-[0_8px_20px_rgba(185,104,62,0.20)] active:translate-y-0"
+              strength={0.25}
             >
               {initialData ? "Save Changes" : "Create Task"}
-            </button>
+            </MagneticButton>
           </div>
         </form>
-      </div>
-    </div>
+        </>
+      )}
+    </ModalTransition>
   );
 };

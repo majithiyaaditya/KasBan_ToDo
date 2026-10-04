@@ -16,6 +16,7 @@ export interface Task {
   subtasks: SubtaskType[];
   createdAt: string;
   updatedAt: string;
+  doneAt?: number;
 }
 
 export type ViewType = "board" | "list" | "analytics";
@@ -127,6 +128,7 @@ const getSampleTasks = (userId: string): Task[] => {
       ],
       createdAt: new Date(Date.now() - 3600000 * 72).toISOString(),
       updatedAt: new Date().toISOString(),
+      doneAt: Date.now(),
     },
     {
       id: "task-4",
@@ -222,6 +224,7 @@ export const useTaskStore = create<TaskState>()(
           subtasks: data.subtasks || [],
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
+          doneAt: data.columnId === "done" ? Date.now() : undefined,
         };
 
         set({
@@ -233,15 +236,24 @@ export const useTaskStore = create<TaskState>()(
 
       updateTask: (taskId, updates) => {
         set({
-          tasks: get().tasks.map((task) =>
-            task.id === taskId
-              ? {
-                  ...task,
-                  ...updates,
-                  updatedAt: new Date().toISOString(),
+          tasks: get().tasks.map((task) => {
+            if (task.id !== taskId) return task;
+            const updated = {
+              ...task,
+              ...updates,
+              updatedAt: new Date().toISOString(),
+            };
+            if (updates.columnId !== undefined) {
+              if (updates.columnId === "done") {
+                if (task.columnId !== "done" || !task.doneAt) {
+                  updated.doneAt = Date.now();
                 }
-              : task
-          ),
+              } else {
+                delete updated.doneAt;
+              }
+            }
+            return updated;
+          }),
         });
       },
 
@@ -257,8 +269,17 @@ export const useTaskStore = create<TaskState>()(
         if (taskIndex === -1) return;
 
         const [movedTask] = tasks.splice(taskIndex, 1);
+        const prevCol = movedTask.columnId;
         movedTask.columnId = targetColumn;
         movedTask.updatedAt = new Date().toISOString();
+
+        if (targetColumn === "done") {
+          if (prevCol !== "done" || !movedTask.doneAt) {
+            movedTask.doneAt = Date.now();
+          }
+        } else {
+          delete movedTask.doneAt;
+        }
 
         if (typeof targetIndex === "number" && targetIndex >= 0) {
           tasks.splice(targetIndex, 0, movedTask);
