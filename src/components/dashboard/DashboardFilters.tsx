@@ -67,11 +67,10 @@ export const DashboardFilters: React.FC = () => {
         <button
           type="button"
           onClick={() => setIsFilterPopoverOpen(!isFilterPopoverOpen)}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition cursor-pointer shrink-0 shadow-2xs ${
-            activeFilterCount > 0 || isFilterPopoverOpen
-              ? "bg-[#B9683E]/10 text-[#B9683E] border-[#B9683E]/60"
-              : "bg-[#FFFCF6]/85 text-[#617278] border-[#D7D2C7] hover:text-[#18262B] hover:bg-[#FFFCF6]"
-          }`}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition cursor-pointer shrink-0 shadow-2xs ${activeFilterCount > 0 || isFilterPopoverOpen
+            ? "bg-[#B9683E]/10 text-[#B9683E] border-[#B9683E]/60"
+            : "bg-[#FFFCF6]/85 text-[#617278] border-[#D7D2C7] hover:text-[#18262B] hover:bg-[#FFFCF6]"
+            }`}
         >
           <SlidersHorizontal className="w-4 h-4" />
           <span>Filters</span>
@@ -130,11 +129,10 @@ export const DashboardFilters: React.FC = () => {
                   key={p.value}
                   type="button"
                   onClick={() => setSelectedPriority(p.value)}
-                  className={`py-1.5 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${
-                    selectedPriority === p.value
-                      ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
-                      : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
-                  }`}
+                  className={`py-1.5 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${selectedPriority === p.value
+                    ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
+                    : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
+                    }`}
                 >
                   {p.label}
                 </button>
@@ -151,11 +149,10 @@ export const DashboardFilters: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setSelectedTag("all")}
-                className={`px-3 py-1 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${
-                  selectedTag === "all"
-                    ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
-                    : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
-                }`}
+                className={`px-3 py-1 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${selectedTag === "all"
+                  ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
+                  : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
+                  }`}
               >
                 All
               </button>
@@ -164,11 +161,10 @@ export const DashboardFilters: React.FC = () => {
                   key={tag}
                   type="button"
                   onClick={() => setSelectedTag(tag)}
-                  className={`px-3 py-1 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${
-                    selectedTag === tag
-                      ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
-                      : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
-                  }`}
+                  className={`px-3 py-1 text-xs sm:text-sm rounded-lg border transition cursor-pointer font-medium ${selectedTag === tag
+                    ? "bg-[#B9683E] text-[#FFFCF6] font-semibold border-[#B9683E]"
+                    : "bg-[#ECE8DE] text-[#617278] border-[#D7D2C7]/70 hover:text-[#18262B]"
+                    }`}
                 >
                   #{tag}
                 </button>
