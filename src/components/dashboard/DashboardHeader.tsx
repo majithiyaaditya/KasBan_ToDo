@@ -6,7 +6,6 @@ import {
   Plus,
   Menu,
   MoreVertical,
-  RotateCcw,
   Trash2,
   LogOut,
 } from "lucide-react";
@@ -28,7 +27,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
 }) => {
   const { currentUser, logout } = useAuthStore();
   const navigate = useNavigate();
-  const { activeView, setActiveView, resetUserTasksToDefault, clearUserTasks } = useTaskStore();
+  const { activeView, setActiveView, clearUserTasks } = useTaskStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -42,15 +41,6 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleResetSampleData = () => {
-    setIsMenuOpen(false);
-    if (currentUser?.id) {
-      if (window.confirm("Load sample demonstration tasks into your workspace?")) {
-        resetUserTasksToDefault(currentUser.id);
-      }
-    }
-  };
 
   const handleClearAllTasks = () => {
     setIsMenuOpen(false);
@@ -157,14 +147,6 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
 
                 {isMenuOpen && (
                   <div className="absolute right-0 mt-1.5 w-52 bg-[#FFFCF6]/95 backdrop-blur-xl border border-[#D7D2C7] rounded-xl shadow-2xl py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100 divide-y divide-[#D7D2C7]/50">
-                    <button
-                      type="button"
-                      onClick={handleResetSampleData}
-                      className="w-full text-left px-4 py-2.5 text-sm text-[#617278] hover:text-[#18262B] hover:bg-[#ECE8DE]/60 flex items-center gap-2.5 transition cursor-pointer"
-                    >
-                      <RotateCcw className="w-4 h-4 text-[#B9683E]" />
-                      <span>Load Demo Tasks</span>
-                    </button>
                     <button
                       type="button"
                       onClick={handleClearAllTasks}
